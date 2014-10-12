@@ -31,6 +31,7 @@ CFLAGS = -O0 -g3 $(PROCESSOR) $(Include) $(STFLAGS) -Wl,--gc-sections -T $(LINK_
 
 # Source files to include
 FILES_TO_LINK := src/scheduling.c
+FILES_TO_LINK += src/sys_clk_init.c
 FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/stm32f10x_rcc.c
 FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/stm32f10x_gpio.c
 # FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/stm32f10x_rtc.c

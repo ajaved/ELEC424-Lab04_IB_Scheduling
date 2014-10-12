@@ -21,7 +21,6 @@
 
 typedef enum {LED_RED=0, LED_GREEN} led_t;
 
-void SetSysClockToHSE(void);
 void InitializeTimer(void);
 void ledToggle(led_t led);
 void EnableTimerInterrupt(void);

@@ -1,7 +1,6 @@
 #include "scheduling.h"
+#include "sys_clk_init.h"
 
-// Errorstatus indicating whether or not HSE start up
-ErrorStatus HSEStartUpStatus;
 // Port used by the LEDs
 static GPIO_TypeDef* led_port[] = {
   [LED_GREEN] = LED_GPIO_PORT, 
@@ -89,25 +88,4 @@ void ledToggle(led_t led)
       GPIO_ResetBits(led_port[led], led_pin[led]); 
 }
 
-// Set system clock to external oscillator
-void SetSysClockToHSE(void)
-{
-  // Reset RCC clock
-  RCC_DeInit();
-  // Turn HSE on
-  RCC_HSEConfig(RCC_HSE_ON);
 
-  /* Wait till HSE is ready */
-  HSEStartUpStatus = RCC_WaitForHSEStartUp();
-
-  if (HSEStartUpStatus == SUCCESS)
-  {
-    /* Select HSE as system clock source */
-    RCC_SYSCLKConfig(RCC_SYSCLKSource_HSE);
-
-    /* Wait till PLL is used as system clock source */
-    while (RCC_GetSYSCLKSource() != 0x04)
-    {
-    }
-  }
-}
