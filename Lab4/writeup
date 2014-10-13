@@ -1,9 +1,20 @@
 Lab04: Interrupt Based Scheduling
-<PUT NAMES HERE>
+Alden Higgins, Haohsiang Chen
 
 Part 1: 2
 
 Q1. Briefly explain the clock path from start to finish (crystal to SYSCLK), including explanations for all your major register configurations.
+
+Clock path setting:
+step1. 8MHz(choose HSE as the output of PLLSRCMUX)  => Choose RCC_CFGR_PLLFRC
+step2. 8MHz * 9 = 72Mhz(set PLLMUL to 9)            => Choose RCC_CFGR_PLLMUL9
+step3. 72Mhz(choose PLLCLK as the output of SW MUX) => Choose RCC_CFGR_SW_PLL
+step4. SYSCLK = 72Mhz
+
+Besides then, we set the AHB prescaler, APB1 prescaler and APB2 Prescaler as /1, /2, /1,
+respectively (choose RCC_CFGR_HPRE_DIV1, RCC_CFGR_PPRE1_DIV2,RCC_CFGR_PPRE2_DIV1)
+
+We also need to enable PLL by setting RCC_CR_PLL, and set flash to two wait states.
 
 Part 2: 3
 
