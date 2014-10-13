@@ -36,6 +36,7 @@ FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/stm32f10x_rcc.c
 FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/stm32f10x_gpio.c
 # FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/stm32f10x_rtc.c
 FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/stm32f10x_tim.c
+FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/stm32f10x_dbgmcu.c
 FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/misc.c
 # FILES_TO_LINK += $(DEVICE_SUPPORT_DIR)/system_stm32f10x.c
 
@@ -45,6 +46,9 @@ all:
 # Program .elf into Crazyflie flash memory via the busblaster
 flash:
 	@openocd -d0 -f interface/busblaster.cfg -f target/stm32f1x.cfg -c init -c targets -c "reset halt" -c "flash write_image erase bin/scheduling.elf" -c "verify_image bin/scheduling.elf" -c "reset run" -c shutdown
+
+halt:
+	@openocd -f interface/busblaster.cfg -f target/stm32f1x.cfg -c 'init; targets; reset halt;' -c shutdown
 
 # Runs OpenOCD, opens GDB terminal, and establishes connection with Crazyflie
 debug:
