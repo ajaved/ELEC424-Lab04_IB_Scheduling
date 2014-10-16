@@ -37,8 +37,9 @@ FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/stm32f10x_gpio.c
 # FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/stm32f10x_rtc.c
 FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/stm32f10x_tim.c
 FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/stm32f10x_dbgmcu.c
+# FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/system_stm32f10x.c
 FILES_TO_LINK += $(SYSTEM_LIBRARY_SRC_DIR)/misc.c
-# FILES_TO_LINK += $(DEVICE_SUPPORT_DIR)/system_stm32f10x.c
+FILES_TO_LINK += $(DEVICE_SUPPORT_DIR)/system_stm32f10x.c
 
 # Build all relevant files and create .elf
 all: 

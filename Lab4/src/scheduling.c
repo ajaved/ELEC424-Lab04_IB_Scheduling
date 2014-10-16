@@ -20,22 +20,28 @@ static bool isInit = false;
 
 int main(void)
 {
-  SetSysClockToHSE();
+  // SetSysClockToHSE();
+  SystemInit();
   // InitializeTimer();
   // EnableTimerInterrupt();
   // Initialize motors
   motorsInit();
-  motorsSetRatio(MOTOR_M1, 0);
-  motorsSetRatio(MOTOR_M2, 0);
-  motorsSetRatio(MOTOR_M3, 0);
-  motorsSetRatio(MOTOR_M4, 0);
+  motorsSetRatio(MOTOR_M1, 30000);
+  motorsSetRatio(MOTOR_M2, 30000);
+  motorsSetRatio(MOTOR_M3, 30000);
+  motorsSetRatio(MOTOR_M4, 30000);
+
+  // motorsSetRatio(MOTOR_M1, 0);
+  // motorsSetRatio(MOTOR_M2, 0);
+  // motorsSetRatio(MOTOR_M3, 0);
+  // motorsSetRatio(MOTOR_M4, 0);
 
   // Initialize LED clock
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | LED_GPIO_PERIF, ENABLE);
 
   // Initialize LED and turn it on
   GPIO_InitTypeDef GPIO_InitStructure;
-	GPIO_InitStructure.GPIO_Pin = LED_GPIO_GREEN | LED_GPIO_RED;
+	GPIO_InitStructure.GPIO_Pin = LED_GPIO_GREEN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
@@ -127,6 +133,7 @@ void motorsInit()
 
   // Remap M2-4
   GPIO_PinRemapConfig(MOTORS_REMAP , ENABLE);
+  // GPIO_PinRemapConfig(GPIO_Remap_TIM4 , ENABLE);
 
   // Timer configuration
   TIM_TimeBaseStructure.TIM_Period = MOTORS_PWM_PERIOD;
@@ -181,14 +188,17 @@ void motorsSetRatio(int id, uint16_t ratio)
   {
     case MOTOR_M1:
       TIM_SetCompare4(MOTORS_GPIO_TIM_M1_2, C_16_TO_BITS(ratio));
+      // TIM_SetCompare4(MOTORS_GPIO_TIM_M1_2, ratio);
       // TIM_DMAConfig(MOTORS_GPIO_TIM_M1_2, TIM_DMABase_CCR1, ratio);
       break;
     case MOTOR_M2:
       TIM_SetCompare3(MOTORS_GPIO_TIM_M1_2, C_16_TO_BITS(ratio));
+      // TIM_SetCompare3(MOTORS_GPIO_TIM_M1_2, ratio);
       // TIM_DMAConfig(MOTORS_GPIO_TIM_M1_2, TIM_DMABase_CCR1, ratio);
       break;
     case MOTOR_M3:
       TIM_SetCompare4(MOTORS_GPIO_TIM_M3_4, C_16_TO_BITS(ratio));
+      // TIM_SetCompare4(MOTORS_GPIO_TIM_M3_4, ratio);
       // TIM_DMAConfig(MOTORS_GPIO_TIM_M3_4, TIM_DMABase_CCR1, ratio);
       break;
     case MOTOR_M4:

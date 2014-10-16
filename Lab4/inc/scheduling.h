@@ -1,7 +1,7 @@
 #ifndef __SCHEDULING_H__
 #define __SCHEDULING_H__
 
-#include <stdio.h>
+// #include <stdio.h>
 #include <stdbool.h>
 #include "stm32f10x_conf.h"
 
@@ -16,16 +16,19 @@
 #define LED_GPIO_RED     GPIO_Pin_4
 #define LED_POL_RED      LED_POL_NEG
 
-#define TIMER_PRESCALE 40000
-#define TIMER_PERIOD 200
+// 40000
+// 200
+#define TIMER_PRESCALE 7200
+#define TIMER_PERIOD 10000
 // #define TIMER_PERIOD 
 
 typedef enum {LED_RED=0, LED_GREEN} led_t;
 
 
 // Motor defines
-// #define BLMC_PERIOD 0.005   // 5ms = 200Hz
-#define BLMC_PERIOD 0.000001
+// #define BLMC_PERIOD 0.01
+#define BLMC_PERIOD 0.005   // 5ms = 200Hz
+// #define BLMC_PERIOD 0.000001
 
 #define MOTORS_GPIO_TIM_PERIF     RCC_APB1Periph_TIM3
 #define MOTORS_GPIO_TIM_M1_2      TIM3
@@ -47,11 +50,19 @@ typedef enum {LED_RED=0, LED_GREEN} led_t;
 #define MOTORS_PWM_CNT_FOR_PERIOD (uint32_t)(72000000 * BLMC_PERIOD / MOTORS_PWM_PRESCALE_RAW)
 #define MOTORS_PWM_CNT_FOR_1MS    (uint32_t)(72000000 * 0.001 / MOTORS_PWM_PRESCALE_RAW)
 // #define MOTORS_PWM_PERIOD         MOTORS_PWM_CNT_FOR_PERIOD
-#define MOTORS_PWM_PERIOD 15000
+#define MOTORS_PWM_PERIOD 20000
 #define MOTORS_PWM_BITS           11  // Only for compatibiliy
 // #define MOTORS_PWM_PRESCALE       (uint16_t)(MOTORS_PWM_PRESCALE_RAW - 1)
 #define MOTORS_PWM_PRESCALE 1
 #define MOTORS_POLARITY           TIM_OCPolarity_Low
+
+
+
+// #define MOTORS_PWM_BITS     9
+// #define MOTORS_PWM_PERIOD   ((1<<MOTORS_PWM_BITS) - 1)
+// #define MOTORS_PWM_PRESCALE 0
+// #define MOTORS_POLARITY           TIM_OCPolarity_High
+
 
 // Motors IDs define
 #define MOTOR_M1  0
