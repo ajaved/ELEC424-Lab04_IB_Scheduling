@@ -3,6 +3,7 @@
 
 // #include <stdio.h>
 #include <stdbool.h>
+#include "lab04_tasks.h"
 #include "stm32f10x_conf.h"
 
 // Timer and LED defines
@@ -49,11 +50,11 @@ typedef enum {LED_RED=0, LED_GREEN} led_t;
 #define MOTORS_PWM_PRESCALE_RAW   (uint32_t)((72000000/0xFFFF) * BLMC_PERIOD + 1) // +1 is to not end up above 0xFFFF in the end
 #define MOTORS_PWM_CNT_FOR_PERIOD (uint32_t)(72000000 * BLMC_PERIOD / MOTORS_PWM_PRESCALE_RAW)
 #define MOTORS_PWM_CNT_FOR_1MS    (uint32_t)(72000000 * 0.001 / MOTORS_PWM_PRESCALE_RAW)
-// #define MOTORS_PWM_PERIOD         MOTORS_PWM_CNT_FOR_PERIOD
-#define MOTORS_PWM_PERIOD 20000
+#define MOTORS_PWM_PERIOD         MOTORS_PWM_CNT_FOR_PERIOD
+// #define MOTORS_PWM_PERIOD 20000
 #define MOTORS_PWM_BITS           11  // Only for compatibiliy
-// #define MOTORS_PWM_PRESCALE       (uint16_t)(MOTORS_PWM_PRESCALE_RAW - 1)
-#define MOTORS_PWM_PRESCALE 1
+#define MOTORS_PWM_PRESCALE       (uint16_t)(MOTORS_PWM_PRESCALE_RAW - 1)
+// #define MOTORS_PWM_PRESCALE 1
 #define MOTORS_POLARITY           TIM_OCPolarity_Low
 
 
@@ -83,9 +84,11 @@ typedef enum {LED_RED=0, LED_GREEN} led_t;
 
 
 // Function definitions
-void InitializeTimer(void);
+// void InitializeTimer(void);
+void InitializeTimer(uint32_t rccPeriph, TIM_TypeDef* timer, uint16_t prescale, uint16_t period);
 void ledToggle(led_t led);
-void EnableTimerInterrupt(void);
+// void EnableTimerInterrupt(void);
+void EnableTimerInterrupt(uint8_t interruptName, uint8_t priority);
 void TIM2_IRQHandler(void);
 void motorsInit(void);
 void motorsSetRatio(int id, uint16_t ratio);
