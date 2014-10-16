@@ -20,7 +20,18 @@ Part 2: 3
 
 Q2. Describe how you determined your PWM frequency.
 
+We choose to use PWM mode1. The PWM frequency is determined by the TIMx_PSC and the TIMx_ARR register, which is TIMxCLK/TIMx_PSC/TIMx_ARR.
+
 Q3. Describe how you would calculate CCR1 values for motors off, %50, and %100.
+
+In PWM mode 1, the reference PWM signal OCxREF is high as long as TIMx_CNT<TIMx_CCRx. Thus,the percentage of time the motor is on is 
+TIMx_CCRx/(TIMx_ARR+1)*100%, and the precentage of time the motor is off is 1-TIMx_CCRx/(TIMx_ARR+1)*100%, for motor's off, 50%, 100%,
+We have : 
+
+duty cycle     TIMxCCRx
+0              0
+50%            (TIMx_ARR+1)/2
+100%           TIMx_ARR+1
 
 Contribution
 
